@@ -1,92 +1,58 @@
-package javaApplication14;
-import java.io.*;
-import java.util.*;
+package bank;
+import java.util.Scanner;
 
-class Bank
-{
-    
-    double dep,wid,bal;
-    
-    Scanner s= new Scanner(System.in);
-    Bank()
-    {
-       
-        dep=wid=0;
-        bal=500;
-        
-    }
-    
-    void opennew()
-    {
-        System.out.println("A minimum of Rs.500 must be deposited");
-    }
-    
-    void deposit()
-    {
-        
-        System.out.println("Enter the amount to be deposited");
-        dep=s.nextDouble();
-        
-        bal=bal+dep;
-        
-    }
-    
-     void withdraw()
-    {
-        System.out.println("Enter the amount to be withdrawn");
-        wid=s.nextDouble();
-       if(wid>bal) 
-        System.out.println("Insufficient balance");
-       else if(bal-Math.abs(wid)<500)
-           System.out.println("Invalid withdraw amount\nMaintain min deposit of Rs.500");
-       else
-           bal=bal-Math.abs(wid);
-           
-    }
-     
-     void enq()
-     {
-         System.out.println("The balance amount is : "+bal);
-     }
+public class Bank {
+        static Scanner input = new Scanner(System.in);
+        private static int id, balance;
+        private static String name;
+        Bank(String name, int id, int balance) {
+        Bank.name = name;
+        Bank.id = id;
+        Bank.balance = balance;
 }
+void display() {
+        System.out.println("Name:" + name);
+        System.out.println("Account id:" + id);
+        System.out.println("Balance:" + balance);
+}
+public static void main(String args[]){
+        System.out.println("Enter your name: ");
+        String nam = input.nextLine();
+        System.out.println("Please enter your account id: ");
+        int i = input.nextInt();
+        System.out.println("Enter initial balance: ");
+        int bal = input.nextInt();
+        Bank a1 = new Bank(nam, i, bal);
+        int menu;
+        System.out.println(" 1. Print balance");
+        System.out.println(" 2. Deposit");
+        System.out.println(" 3. Withdraw");
+        System.out.println(" 4. Exit");
+        boolean quit = false;
+            do {
+                System.out.print("Please enter your choice: ");
+                menu = input.nextInt();
+                switch(menu) {
+                case 1:
+                    a1.display();
+                break;
+                case 2:
+                    System.out.println("enter amount to be deposited");
+                      bal = input.nextInt();
+                       balance+=bal;
 
-public class JavaApplication14 {
-
-    public static void main(String[] args) 
-    {
-        Boolean flag=true,f=false;
-        Bank b= new Bank();
-        int ch,i=0;
-        Scanner s= new Scanner(System.in);
-       
-        while(flag==true)
-        {
-            System.out.println("1.Create account\n2.Deposit\n3.Wtihdraw");
-            System.out.println("4.Balance Enquiry\n5.Exit\nEnter your choice:");
-            ch=s.nextInt();
-            
-            if(ch==1 && f==true)
-                System.out.println("Account already open");
-            else{
-                switch(ch)
-                {
-                    case 1: b.opennew();
-                           
-                            break;
-                    case 2: b.deposit();
-                            break;
-                    case 3: b.withdraw();
-                            break;
-                    case 4: b.enq();
-                            break;
-                    case 5: flag=false;
-                            break;
-                        
-                    default: System.out.println("Enter valid choice:");
-                }
+            break;
+            case 3:
+                System.out.println("enter amount to be withdrawn");
+                int w = input.nextInt();
+                  balance-=w;
+            break;
+            case 4:
+            quit = true;
+            break;
 
             }
         }
+    while(!quit);
     }
 }
-
